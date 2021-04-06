@@ -24,9 +24,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version = 2021033100;
+$plugin->version = 2021040600;
 $plugin->requires = 2020033100;
 $plugin->component = 'block_requestlist';
 $plugin->maturity = MATURITY_BETA;
-$plugin->release = '0.0.1';
+$plugin->release = '0.1.1';
 

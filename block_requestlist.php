@@ -203,7 +203,6 @@ class block_requestlist extends block_base
             INNER JOIN {course_categories} AS category ON request.category = category.id
             GROUP BY request.fullname
             ORDER BY category.name, request.fullname;";
-            
         }
         $requests = $DB->get_records_sql($sql);
     return $requests;
