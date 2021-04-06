@@ -188,6 +188,23 @@ class block_requestlist extends block_base
         INNER JOIN {course_categories} AS category ON request.category = category.id
         GROUP BY request.fullname
         ORDER BY category.name, request.fullname;";
+        // Other databases than MySQL don't know GROUP_CONCAT...
+        $dbman = get_class($DB->get_manager()->generator);
+        if (strpos($dbman, 'mysql') !== 0)
+        {
+            $sql = "SELECT row_number() OVER (ORDER BY request.fullname) n, count(*) AS request_nb, 
+                            STRING_AGG(request.requester, ', ') AS requester_list,
+                            request.id AS requestid, 
+                            request.fullname,  
+                            request.summary, 
+                            category.id AS category_id,
+                            category.name AS category_name
+            FROM {course_request} AS request 
+            INNER JOIN {course_categories} AS category ON request.category = category.id
+            GROUP BY request.fullname
+            ORDER BY category.name, request.fullname;";
+            
+        }
         $requests = $DB->get_records_sql($sql);
     return $requests;
     }
